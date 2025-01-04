@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
@@ -10,13 +9,13 @@ const NewsWidget = () => {
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
 
-  const NEWS_API_KEY = "df33c859363b483eb95fad9d59b6cb10"; 
+  const GNEWS_API_KEY = "89d0620e8f4e86fcf10d5f972abf46fa"; // GNews API Key
 
   const fetchNews = async (selectedCategory, pageNumber = 1) => {
     setLoading(true);
     try {
       const response = await axios.get(
-        `https://newsapi.org/v2/top-headlines?category=${selectedCategory.toLowerCase()}&country=us&page=${pageNumber}&apiKey=${NEWS_API_KEY}`
+        `https://gnews.io/api/v4/top-headlines?category=${selectedCategory.toLowerCase()}&lang=en&page=${pageNumber}&token=${GNEWS_API_KEY}`
       );
       setNewsData((prev) => (pageNumber === 1 ? response.data.articles : [...prev, ...response.data.articles]));
     } catch (error) {
@@ -44,17 +43,18 @@ const NewsWidget = () => {
   }, []);
 
   // Filter out articles without images
-  const filteredNewsData = newsData.filter((article) => article.urlToImage);
+  const filteredNewsData = newsData.filter((article) => article.image);
 
   return (
-    <div style={{
-          backgroundImage: 'url("https://cdn.pixabay.com/photo/2016/02/01/00/56/news-1172463_1280.jpg")',
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-    className="
-    // bg-gradient-to-b from-gray-800 to-black 
-    min-h-screen p-6">
+    <div
+      style={{
+        backgroundImage:
+          'url("https://cdn.pixabay.com/photo/2016/02/01/00/56/news-1172463_1280.jpg")',
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+      className="min-h-screen p-6"
+    >
       <div className="max-w-4xl mx-auto"> {/* Container to control the width */}
         <h2 className="text-4xl font-bold text-white text-center mb-8">News Headlines</h2>
 
@@ -83,7 +83,7 @@ const NewsWidget = () => {
               className="bg-white rounded-lg shadow-lg overflow-hidden hover:scale-105 transition-transform transform duration-300"
             >
               <img
-                src={article.urlToImage}
+                src={article.image}
                 alt={article.title}
                 className="h-32 w-full object-cover"
               />
@@ -100,7 +100,7 @@ const NewsWidget = () => {
                 </a>
               </div>
               <div className="p-4 bg-gray-100 text-xs text-gray-600">
-                Source: {article.source.name || "Unknown"}
+                Source: {article.source ? article.source.name : "Unknown"}
               </div>
             </div>
           ))}
