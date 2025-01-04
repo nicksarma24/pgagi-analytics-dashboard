@@ -6,6 +6,14 @@ Weather Widget: Displays current weather and a 7-day forecast based on the user'
 Finance Widget: Provides real-time financial data and updates, such as stock prices and cryptocurrency values.
 Movies Widget: Shows trending movies, including their posters, release dates, ratings, and detailed movie information.
 News Widget: Displays the latest headlines categorized into sections like Technology, Sports, Business, Health, and Entertainment.
+
+In weather feature, in one second type on one letter of a city as I've basic plan of the api
+eg in first second D second second E then L, H , I 
+
+In the news feature, the news cards are being shown locally but when i hosted its not visible, I am fixing it, i dont know the reason. 
+
+for the Finance feature, use symbol like BTC, APPL etc
+
 Technologies Used
 React.js
 Tailwind CSS for styling
